@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 interface IButton {
   text: string;
-  onClick: () => void;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 export function SubmitBtn({ text, onClick }: IButton) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { SubmitBtn } from '../SubmitBtn/SubmitBtn';
 interface ITodo {
   text: string;
@@ -9,9 +9,9 @@ interface ITodo {
 export function Todo({ text, onDelete, onComplete }: ITodo) {
   return (
     <div>
-      <SubmitBtn onClick={onDelete} text='done' />
+      <SubmitBtn onClick={onComplete} text='done' />
       <p>{text}</p>
-      <SubmitBtn onClick={onComplete} text='delete' />
+      <SubmitBtn onClick={onDelete} text='delete' />
     </div>
   );
 }
