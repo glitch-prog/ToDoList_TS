@@ -8,9 +8,9 @@ import { useState } from 'react';
 import { InputForm } from '../InputForm/InputForm';
 import { Todo } from '../Todo/Todo';
 const todos = [
-  { id: 0, text: 'hello' },
-  { id: 1, text: 'hello' },
-  { id: 2, text: 'hello' },
+  { id: 0, text: 'hello', checked: false },
+  { id: 1, text: 'hello', checked: false },
+  { id: 2, text: 'hello', checked: false },
 ];
 
 export function Todolist() {
@@ -21,9 +21,10 @@ export function Todolist() {
     setValue(event.target.value);
 
   const createTodo = () => {
-    const todo: { id: number; text: string } = {
+    const todo: { id: number; text: string; checked: boolean } = {
       id: item.length,
       text: value,
+      checked: false,
     };
     setItem([...item, todo]);
     console.log(item);
@@ -33,7 +34,17 @@ export function Todolist() {
     setItem(item.filter((todo) => id !== todo.id));
     console.log(item);
   };
-  const onComplete = () => {};
+  const onComplete = (id: number) => {
+    const newTodos = item.map((todo) => {
+      if (todo.id === id) {
+        todo.checked = !todo.checked;
+      }
+      return todo;
+    });
+
+    setItem(newTodos);
+    console.log(item);
+  };
 
   return (
     <div>
@@ -47,8 +58,9 @@ export function Todolist() {
           <Todo
             key={todo.id}
             text={todo.text}
+            checked={todo.checked}
             onDelete={() => onClickDelete(todo.id)}
-            onComplete={onComplete}
+            onComplete={() => onComplete(todo.id)}
           />
         );
       })}
