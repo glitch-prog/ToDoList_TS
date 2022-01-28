@@ -2,7 +2,7 @@ import { ChangeEventHandler } from 'react';
 
 interface IInput {
   value: string;
-  onChange: (event: ChangeEventHandler<HTMLInputElement>) => void;
+  onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
 export function Input({ value, onChange }: IInput) {

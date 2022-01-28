@@ -4,7 +4,7 @@ import { SubmitBtn } from '../SubmitBtn/SubmitBtn';
 
 interface IInputForm {
   value: string;
-  handleOnChangeValue: (event: ChangeEventHandler<HTMLInputElement>) => void;
+  handleOnChangeValue:  ChangeEventHandler<HTMLInputElement>;
   createTodo: () => void;
 }
 

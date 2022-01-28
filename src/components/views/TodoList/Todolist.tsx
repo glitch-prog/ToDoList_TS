@@ -1,25 +1,25 @@
-import React, { ChangeEventHandler } from 'react';
+import React, { ChangeEvent, ChangeEventHandler } from 'react';
 import { useState } from 'react';
 import { InputForm } from '../InputForm/InputForm';
 import { Todo } from '../Todo/Todo';
 const todos = [
-  { id: 0, text: 'hello' },
-  { id: 1, text: 'hello' },
-  { id: 2, text: 'hello' },
+  { id: '0', text: 'hello' },
+  { id: '1', text: 'hello' },
+  { id: '2', text: 'hello' },
 ];
 
 export function Todolist() {
-  const [item, setItem] = useState([]);
+  const [item, setItem] = useState(todos);
   const [value, setValue] = useState('');
 
-  const handleOnChangeValue = (event: ChangeEventHandler<HTMLInputElement>) =>
+  const handleOnChangeValue = (event: ChangeEvent<HTMLInputElement>) =>
     setValue(event.target.value);
   const createTodo = () => {
-    const todo: { value: string; id: Number } = {
-      value: value,
+    const todo: { id: Number; text: string } = {
       id: item.length,
+      text: value,
     };
-    setItem([...item, { text: value, id: item.length }]);
+    setItem([...item, todo]);
   };
 
   const onDelete = () => {};
