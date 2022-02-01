@@ -1,6 +1,7 @@
 import React, { ChangeEventHandler, useState } from 'react';
 import { UpdatedForm } from '../UpdatedForm/UpdatedForm';
 import { SubmitBtn } from '../SubmitBtn/SubmitBtn';
+
 interface ITodo {
   text: string;
   checked: boolean;
@@ -29,7 +30,9 @@ export function Todo({
   };
 
   return (
+
     <div style={{ display: 'flex' }}>
+
       <SubmitBtn onClick={onComplete} text='done' />
       <p
         onClick={toggleShowTime}
