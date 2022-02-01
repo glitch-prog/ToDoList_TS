@@ -7,23 +7,30 @@ import React, {
 import { useState } from 'react';
 import { InputForm } from '../InputForm/InputForm';
 import { Todo } from '../Todo/Todo';
-const todos = [
-  { id: 0, text: 'hello', checked: false },
-  { id: 1, text: 'hello', checked: false },
-  { id: 2, text: 'hello', checked: false },
-];
+interface IItem {
+  id: number;
+  time: string;
+  text: string;
+  checked: boolean;
+}
 
 export function Todolist() {
-  const [item, setItem] = useState(todos);
-  const [value, setValue] = useState('');
+  const [item, setItem] = useState<IItem[]>([]);
+  const [value, setValue] = useState<string>('');
+  const [updatedText, setUpdatedText] = useState<string>('');
 
   const handleOnChangeValue = (event: ChangeEvent<HTMLInputElement>) =>
     setValue(event.target.value);
 
+  const handleOnChangeUpdatedText = (event: ChangeEvent<HTMLInputElement>) =>
+    setUpdatedText(event.target.value);
+
   const createTodo = () => {
-    const todo: { id: number; text: string; checked: boolean } = {
+    const date = new Date();
+    const todo: { id: number; text: string; time: string; checked: boolean } = {
       id: item.length,
       text: value,
+      time: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`,
       checked: false,
     };
     setItem([...item, todo]);
@@ -34,6 +41,19 @@ export function Todolist() {
     setItem(item.filter((todo) => id !== todo.id));
     console.log(item);
   };
+
+  const onChange = (id: number) => {
+    const updatedTodos = item.map((todo) => {
+      if (todo.id === id) {
+        todo.text = updatedText;
+      }
+      return todo;
+    });
+
+    setItem(updatedTodos);
+    console.log(item);
+  };
+
   const onComplete = (id: number) => {
     const newTodos = item.map((todo) => {
       if (todo.id === id) {
@@ -56,11 +76,15 @@ export function Todolist() {
       {item.map((todo) => {
         return (
           <Todo
+            time={todo.time}
             key={todo.id}
             text={todo.text}
             checked={todo.checked}
+            updatedText={updatedText}
             onDelete={() => onClickDelete(todo.id)}
             onComplete={() => onComplete(todo.id)}
+            handleChangeUpdatedText={handleOnChangeUpdatedText}
+            onChange={() => onChange(todo.id)}
           />
         );
       })}
